@@ -13,6 +13,9 @@ public:
 	void Draw() override;
 private:
 	int hImage;
+	int i;
+	int RandMax;
+	unsigned int Color;
 	GameObject* sceneTop;
 	bool prevSpaceKey;
 };
