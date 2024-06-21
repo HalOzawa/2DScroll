@@ -22,12 +22,37 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
-		i = GetRand(RandMax);
+	//if (CheckHitKey(KEY_INPUT_SPACE)) {
+	//	Number = GetRand(RandMax);
+	//}
+	if (transform_.position_.x == 400) {
+		Number = GetRand(RandMax);
 	}
-	if (i >= 90) {
-		transform_.position_.x = 800;
+
+	if (Number == 1) {
+		transform_.position_.x = 200;
 	}
+	else if (Number > 1 && Number <= 50) {
+		transform_.position_.x = 500;
+	}
+	else if (Number > 50 && Number <= 99) {
+		transform_.position_.y = 100;
+	}
+	else if(Number == 100) {
+		transform_.position_.y = 577;
+	}
+
+	//switch (i)
+	//{
+	//case 0:
+	//	transform_.position_.x = 800;
+	//	break;
+	//case 9:
+	//	transform_.position_.x = 400;
+	//	break;
+	//default:
+	//	break;
+	//}
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
 		transform_.position_.x += 3.0;
@@ -44,5 +69,5 @@ void Player::Draw()
 	int x = (int)transform_.position_.x;
 	int y = (int)transform_.position_.y;
 	DrawRectGraph(x, y, 0, 0, 64, 64, hImage, TRUE);
-	DrawFormatString(0, 0, Color, "—”‚Í %d", i);
+	DrawFormatString(0, 0, Color, "—”‚Í %d", Number);
 }
