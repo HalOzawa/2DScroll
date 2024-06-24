@@ -3,6 +3,7 @@
 class Gimmick :
     public GameObject
 {
+public:
 
 };
 
