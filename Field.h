@@ -18,4 +18,5 @@ public:
 
 private:
 	int hImage;
+	int scroll;
 };

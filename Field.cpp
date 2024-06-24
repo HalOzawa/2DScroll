@@ -1,6 +1,6 @@
 #include "Field.h"
 #include <assert.h>
-//#include "Camera.h"
+#include "Camera.h"
 #include"Player.h"
 #include "Bird.h"
 namespace
@@ -9,8 +9,6 @@ namespace
 	const int HEIGHT = 22;
 
 };
-
-
 
 const int Map[HEIGHT][WIDTH] = {
 {18,19,255,255,18,19,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255},
@@ -80,15 +78,19 @@ void Field::Update()
 void Field::Draw()
 {
 
-	int scrool = 0;
+	//int scrool = 0;
 	//Camera* cam = GetOarent()->FinedGameObjuct<Field>()
-
+	Camera* cam = GetParent()->FindGameObject<Camera>();
+	if (cam != nullptr)
+	{
+		scroll = cam->GetValue(); // カメラのスクロール値を取得
+	}
 		for (int y = 0; y < HEIGHT; y++)
 		{
 			for (int x = 0; x < WIDTH; x++)
 			{
 				int chip = Map[y][x];
-				DrawRectGraph(x * 32, y * 32, 32 * (chip % 16), 32 * (chip / 16), 32, 32, hImage, TRUE);
+				DrawRectGraph(x * 32-scroll, y * 32, 32 * (chip % 16), 32 * (chip / 16), 32, 32, hImage, TRUE);
 			}
 		}
 }

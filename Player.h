@@ -13,9 +13,25 @@ public:
 	void Draw() override;
 private:
 	int hImage;
-	int Number;
-	int RandMax;
-	unsigned int Color;
 	GameObject* sceneTop;
 	bool prevSpaceKey;
+	bool onGround;
+	float Jump_P = 0.0f;
+
+	int animType;//ó‹µ
+	int animFrame;//‹î
+	int PictFlame;
+	int flameCounter;
+	int number;
+	int RandMax;
+	int count;
+	int Color;
+	enum State
+	{
+		S_WaIk = 0,
+		S_Cry,
+	};
+	State state;
+
+	void SetPosition(int x, int y);
 };
