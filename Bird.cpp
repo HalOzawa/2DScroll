@@ -23,6 +23,8 @@ void Bird::Update()
 	sinAngle += 3.0f; //
 	float sinValue = sinf(sinAngle * DX_PI_F / 180.0);
 	transform_.position_.y = 500.0f + sinValue * 50.0f;
+
+	
 }
 
 void Bird::Draw()
@@ -35,19 +37,29 @@ void Bird::Draw()
 		x -= cam->GetValue();
 	}
 	DrawRectGraph(x, y, 0, 0, 64, 64, hImage, TRUE);
+	DrawCircle(x + 32.0f, y + 32.0f, 24.0f, GetColor(255, 0, 0),0);
 }
 
 bool Bird::CollideCircle(float x, float y, float r)
 {
+	//x,y,r‚ª‘Šè‚Ì‰~‚Ìî•ñ
+   //©•ª‚Ì‰~‚Ìî•ñ
 	float myCenterX = transform_.position_.x + 32.0f;
 	float myCenterY = transform_.position_.y + 32.0f;
-	float myR = 24.0f;
-
-	(myCenterX - x)* (myCenterY - y);
-
 	float dx = myCenterX - x;
 	float dy = myCenterY - y;
-	if (sqrt(dx * dx + dy * dy) < (r + myR) * (r + myR))
+	float dSqrts = dx * dx + dy * dy;
+	//float dSqrts =sqrt(dx * dx + dy * dy);
+
+	float myR = 20.0f + r;
+	float rSqrt = myR * myR;
+	//float rSqrt = sqrt(myR * myR);
+	if (dSqrts <= rSqrt)
+	{
 		return true;
-	return false;
+	}
+	else
+	{
+		return false;
+	}
 }

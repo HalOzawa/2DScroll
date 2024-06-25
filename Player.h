@@ -11,6 +11,9 @@ public:
 	~Player();
 	void Update() override;
 	void Draw() override;
+
+	bool CollideCircle(float x, float y, float r);
+	void SetPosition(int x, int y);
 private:
 	int hImage;
 	GameObject* sceneTop;
@@ -22,10 +25,7 @@ private:
 	int animFrame;//‹î
 	int PictFlame;
 	int flameCounter;
-	int number;
-	int RandMax;
-	int count;
-	int Color;
+	
 	enum State
 	{
 		S_WaIk = 0,
@@ -33,5 +33,5 @@ private:
 	};
 	State state;
 
-	void SetPosition(int x, int y);
+	
 };

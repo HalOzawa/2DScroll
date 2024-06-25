@@ -14,6 +14,15 @@
     <Filter Include="01Engine\ResourceManager">
       <UniqueIdentifier>{bedee914-5063-4c08-95bb-79c861b4969c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gimmick">
+      <UniqueIdentifier>{7afea129-3a9f-4c5a-ae3a-23651fd169c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{ea0aa643-09e8-4898-b168-007f947f0853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{51b57d4b-8a74-4011-9dbf-a9200d2f478d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\GameObject.cpp">
@@ -35,12 +44,24 @@
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Stone.cpp" />
-    <ClCompile Include="Bird.cpp" />
-    <ClCompile Include="Field.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Gimmick.cpp" />
+    <ClCompile Include="Gimmick.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Bird.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject.h">
@@ -62,11 +83,23 @@
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Stone.h" />
-    <ClInclude Include="Bird.h" />
-    <ClInclude Include="Field.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Gimmick.h" />
+    <ClInclude Include="Gimmick.h">
+      <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Bird.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

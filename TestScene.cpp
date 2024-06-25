@@ -3,6 +3,7 @@
 #include "Bird.h"
 #include "Field.h"
 #include "Camera.h"
+#include "Gimmick.h"
 
 //コンストラクタ
 TestScene::TestScene(GameObject * parent)
@@ -16,6 +17,7 @@ void TestScene::Initialize()
 
 	Instantiate<Camera>(this);
 	Instantiate<Field>(this);
+	Instantiate<Gimmick>(this);
 	Instantiate<Player>(this);
 	Instantiate<Bird>(this);
 }
