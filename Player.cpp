@@ -27,6 +27,11 @@ Player::Player(GameObject* parent) : GameObject(sceneTop)
 	animFrame = 0;
 	state = S_WaIk;
 	
+	number = 0;
+	RandMax = 100;
+	count = 0;
+	Color = GetColor(255, 255, 255);
+
 	/*cameraX = 50;*/
 }
 
@@ -40,26 +45,36 @@ Player::~Player()
 
 void Player::Update()
 {
-	Field* pField = GetParent()->FindGameObject<Field>();
+	if (count < 1) {
+		if (transform_.position_.x == 400) {
+			number = GetRand(RandMax);
+			count++;
+		}
+	}
+	if (number == 1) {
 
-	if (state == S_Cry)
-	{
-		flameCounter++;
-		if (flameCounter >= 4); {
-			flameCounter = 0;
-			animFrame = (animFrame + 1) % 2;
-		}
-		return;
 	}
-	std::list<Bird*> eBird = GetParent()->FindGameObjects<Bird>();
-	for (Bird* eBird : eBird)
-	{
-		if (eBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
+	else if (number > 1 && number <= 50) {
+		DrawString(100, 250, "加速！！", Color);
+		ScreenFlip();
+		if (CheckHitKey(KEY_INPUT_D))
 		{
-			//当たった処理
-			KillMe();
+			transform_.position_.x += MOVE_SPEED * 2.0f;
+			if (++flameCounter >= 8)
+			{
+				animFrame = (animFrame + 1) % 4;//if文を使わない最適解
+				flameCounter = 0;
+			}
 		}
 	}
+	else if (number > 50 && number <= 99) {
+		DrawString(100, 250, "何も起きなかった", Color);
+		ScreenFlip();
+	}
+	else if (number == 100) {
+		KillMe();
+	}
+	Field* pField = GetParent()->FindGameObject<Field>();
 
 	if (CheckHitKey(KEY_INPUT_D))
 	{
@@ -82,9 +97,10 @@ void Player::Update()
 	}
 	else
 	{
-		//animFrame = 0;
+		animFrame = 0;
 		flameCounter = 0;
 	}
+
 
 
 	if (CheckHitKey(KEY_INPUT_SPACE))
@@ -145,14 +161,13 @@ void Player::Update()
 		st->SetPosition(transform_.position_);
 	}
 
-	Bird* pBird = GetParent()->FindGameObject<Bird>();
-	if (pBird != nullptr)
+	std::list<Bird*> eBird = GetParent()->FindGameObjects<Bird>();
+	for (Bird* eBird : eBird)
 	{
-		if (pBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
+		if (eBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
 		{
-			//animType = 4;
-			//animFrame = 0;
-			//state = S_Cry;
+			//当たった処理
+			KillMe();
 		}
 	}
 	//カメラ位置の調整
@@ -178,6 +193,7 @@ void Player::Draw()
 	}
 	DrawRectGraph(x, y, animFrame * 64, animType * 64, 64, 64, hImage, TRUE);
 	DrawCircle(x + 32.0f, y + 32.0f, 24.0f, GetColor(255, 0, 0), 0);
+	DrawFormatString(0, 0, Color, "乱数は %d", number);
 }
 
 bool Player::CollideCircle(float x, float y, float r)

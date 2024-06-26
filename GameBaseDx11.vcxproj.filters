@@ -44,9 +44,6 @@
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp" />
-    <ClCompile Include="Gimmick.cpp">
-      <Filter>Gimmick</Filter>
-    </ClCompile>
     <ClCompile Include="Stone.cpp">
       <Filter>Gimmick</Filter>
     </ClCompile>
@@ -83,9 +80,6 @@
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h" />
-    <ClInclude Include="Gimmick.h">
-      <Filter>Gimmick</Filter>
-    </ClInclude>
     <ClInclude Include="Stone.h">
       <Filter>Gimmick</Filter>
     </ClInclude>
@@ -95,10 +89,10 @@
     <ClInclude Include="Player.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="Field.h">
       <Filter>Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
+    <ClInclude Include="Camera.h">
       <Filter>Stage</Filter>
     </ClInclude>
   </ItemGroup>

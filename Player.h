@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
 
+
 /// <summary>
 /// プレイヤーキャラ
 /// </summary>
@@ -26,6 +27,11 @@ private:
 	int PictFlame;
 	int flameCounter;
 	
+	int number;
+	int RandMax;
+	int count;
+	int Color;
+
 	enum State
 	{
 		S_WaIk = 0,
