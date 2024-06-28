@@ -8,7 +8,7 @@
 
 namespace
 {
-	const float MOVE_SPEED = 3.0f;
+	const float MOVE_SPEED = 2.0f;
 	const float PLAYER_XPOSITION = 10.0f;
 	const float GROUND = 580.0f;
 	const float JUMP_HEIGHT = 64.0f * 3.0f*1.5f;
@@ -45,35 +45,128 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (count < 1) {
-		if (transform_.position_.x == 400) {
+	if (transform_.position_.x >= 400 && transform_.position_.x <= 900) {
+		if (count < 1) {
 			number = GetRand(RandMax);
 			count++;
 		}
-	}
-	if (number == 1) {
 
+			if (number == 1) {
+				DrawString(100, 250, "ライフ回復", Color);
+				ScreenFlip();
+			}
+			else if (number > 1 && number <= 65) {
+				DrawString(100, 250, "加速！！", Color);
+				ScreenFlip();
+				if (CheckHitKey(KEY_INPUT_D))
+				{
+					transform_.position_.x += MOVE_SPEED * 3.0f;
+					if (++flameCounter >= 8)
+					{
+						animFrame = (animFrame + 1) % 4;//if文を使わない最適解
+						flameCounter = 0;
+					}
+				}
+			}
+			else if (number > 65 && number <= 99) {
+				DrawString(100, 250, "何も起きなかった", Color);
+				ScreenFlip();
+			}
+			else if (number == 100) {
+				KillMe();
+			}
 	}
-	else if (number > 1 && number <= 50) {
-		DrawString(100, 250, "加速！！", Color);
-		ScreenFlip();
-		if (CheckHitKey(KEY_INPUT_D))
-		{
-			transform_.position_.x += MOVE_SPEED * 2.0f;
-			if (++flameCounter >= 8)
+
+	if (transform_.position_.x >= 1000 && transform_.position_.x <= 1200 ) {
+		if (count < 2) {
+			number = GetRand(RandMax);
+			count++;
+		}
+			if (number == 1 && number <= 60) {
+				DrawString(100, 250, "アイテムゲット", Color);
+				ScreenFlip();
+			}
+			else if (number > 60 && number <= 99) {
+				DrawString(100, 250, "敵追加", Color);
+				ScreenFlip();
+			}
+			else if (number == 100) {
+				KillMe();
+			}
+	}
+
+	if (transform_.position_.x >= 1350 && transform_.position_.x <= 1800) {
+		if (count < 3) {
+			number = GetRand(RandMax);
+			count++;
+		}
+
+			if (number == 1) {
+
+			}
+			else if (number > 1 && number <= 70) {
+				DrawString(100, 250, "何も起きなかった", Color);
+				ScreenFlip();
+			}
+			else if (number > 70 && number <= 99) {
+				DrawString(100, 250, "減速...", Color);
+				ScreenFlip();
+				if (CheckHitKey(KEY_INPUT_D))
+				{
+					transform_.position_.x += MOVE_SPEED / -3.0f;
+					if (++flameCounter >= 8)
+					{
+						animFrame = (animFrame + 1) % 4;//if文を使わない最適解
+						flameCounter = 0;
+					}
+				}
+			}
+			else if (number == 100) {
+				KillMe();
+			}
+	}
+
+	if (transform_.position_.x >= 2050 && transform_.position_.x <= 2940) {
+		if (count < 4) {
+			number = GetRand(RandMax);
+			count++;
+		}
+
+		if (number == 1) {
+			DrawString(100, 250, "ライフ回復", Color);
+			ScreenFlip();
+		}
+		else if (number > 1 && number <= 50) {
+			DrawString(100, 250, "加速！！", Color);
+			ScreenFlip();
+			if (CheckHitKey(KEY_INPUT_D))
 			{
-				animFrame = (animFrame + 1) % 4;//if文を使わない最適解
-				flameCounter = 0;
+				transform_.position_.x += MOVE_SPEED * 2.0f;
+				if (++flameCounter >= 8)
+				{
+					animFrame = (animFrame + 1) % 4;//if文を使わない最適解
+					flameCounter = 0;
+				}
 			}
 		}
+		else if (number > 50 && number <= 99) {
+			DrawString(100, 250, "減速...", Color);
+			ScreenFlip();
+			if (CheckHitKey(KEY_INPUT_D))
+			{
+				transform_.position_.x += MOVE_SPEED / -3.0f;
+				if (++flameCounter >= 8)
+				{
+					animFrame = (animFrame + 1) % 4;//if文を使わない最適解
+					flameCounter = 0;
+				}
+			}
+		}
+		else if (number == 100) {
+			KillMe();
+		}
 	}
-	else if (number > 50 && number <= 99) {
-		DrawString(100, 250, "何も起きなかった", Color);
-		ScreenFlip();
-	}
-	else if (number == 100) {
-		KillMe();
-	}
+
 	Field* pField = GetParent()->FindGameObject<Field>();
 
 	if (CheckHitKey(KEY_INPUT_D))
@@ -100,8 +193,6 @@ void Player::Update()
 		animFrame = 0;
 		flameCounter = 0;
 	}
-
-
 
 	if (CheckHitKey(KEY_INPUT_SPACE))
 	{
