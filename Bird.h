@@ -13,6 +13,7 @@ public:
 	void Draw() override;
 
 	bool CollideCircle(float x, float y, float r);
+	void SetPosition(int x, int y);
 private:
 	float sinAngle;
 	int hImage;

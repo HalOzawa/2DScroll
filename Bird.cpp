@@ -1,6 +1,10 @@
 #include "Bird.h"
 #include <assert.h>
 #include"Camera.h"
+
+namespace {
+	static const int SCREEN_WIDTH = 1280;
+}
 Bird::Bird(GameObject* scene)
 {
 	hImage = LoadGraph("Assets/mob.png");
@@ -19,6 +23,18 @@ Bird::~Bird()
 
 void Bird::Update()
 {
+	int x = (int)transform_.position_.x;
+	Camera* cam = GetParent()->FindGameObject<Camera>();
+	if (cam != nullptr)
+	{
+		x -= cam->GetValue();
+	}
+	if (x > SCREEN_WIDTH)
+		return;
+	else if (x < -64) {
+		KillMe();
+		return;
+	}
 	transform_.position_.x -= 1.0f;
 	sinAngle += 3.0f; //
 	float sinValue = sinf(sinAngle * DX_PI_F / 180.0);
@@ -62,4 +78,10 @@ bool Bird::CollideCircle(float x, float y, float r)
 	{
 		return false;
 	}
+}
+
+void Bird::SetPosition(int x, int y)
+{
+	transform_.position_.x = x;
+	transform_.position_.y = y;
 }

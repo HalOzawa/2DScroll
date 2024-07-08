@@ -1,4 +1,26 @@
+//#pragma once
+//#include <string>
+//#include <vector>
+//
+//class CsvReader {
+//public:
+//	CsvReader();
+//	CsvReader(std::string filename);
+//	~CsvReader();
+//	bool Load(std::string filename);
+//	int GetHeight();
+//	int GetWidth(int line);
+//	std::string GetString(int column, int line);
+//	int GetInt(int column, int line);
+//	float GetFloat(int column, int line);
+//private:
+//	struct LINEREC {
+//		std::vector<std::string> record;
+//	};
+//	std::vector<LINEREC> all;
+//};
 #pragma once
+
 #include <vector>
 #include <string>
 
@@ -15,7 +37,7 @@ class CsvReader
 	//引数：data	もとの文字列データ
 	//引数：index	何文字目から調べるか
 	//戻値：なし
-	void GetToComma(std::string *result, std::string data, DWORD* index);
+	void GetToComma(std::string* result, std::string data, DWORD* index);
 
 public:
 	//コンストラクタ
@@ -49,5 +71,18 @@ public:
 	//引数：なし
 	//戻値：行数
 	size_t GetHeight();
+
+	//std::string GetString(int column, int line);
+	int GetInt(int column, int line);
+	float GetFloat(int column, int line);
+
+	//int GetHeight();
+	//int GetWidth(int line);
+
+private:
+	struct LINEREC {
+		std::vector<std::string> record;
+	};
+	std::vector<LINEREC> all;
 };
 

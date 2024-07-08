@@ -9,6 +9,7 @@ class Field : public GameObject
 public:
 	Field(GameObject* scene);
 	~Field();
+	void Reset();
 	void Update() override;
 	void Draw() override;
 
@@ -18,5 +19,9 @@ public:
 
 private:
 	int hImage;
-	int scroll;
+	
+	bool IsWallBlock(int x, int y);
+	int* Map;
+	int width;
+	int height;
 };

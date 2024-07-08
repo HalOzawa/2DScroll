@@ -13,11 +13,14 @@ TestScene::TestScene(GameObject * parent)
 //‰Šú‰»
 void TestScene::Initialize()
 {
-
+	Field* pField = Instantiate<Field>(this);
+	pField->Reset();
 	Instantiate<Camera>(this);
-	Instantiate<Field>(this);
 	Instantiate<Player>(this);
+	Instantiate<Field>(this);
+	
 	Instantiate<Bird>(this);
+
 }
 
 //XV
