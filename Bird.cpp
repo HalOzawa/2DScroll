@@ -9,8 +9,8 @@ Bird::Bird(GameObject* scene)
 {
 	hImage = LoadGraph("Assets/mob.png");
 	assert(hImage > 0);
-	transform_.position_.x = 800.0f;
-	transform_.position_.y = 500.0f;
+	//transform_.position_.x = 800.0f;
+	//transform_.position_.y = 500.0f;
 }
 
 Bird::~Bird()
@@ -56,6 +56,12 @@ void Bird::Draw()
 	DrawCircle(x + 32.0f, y + 32.0f, 24.0f, GetColor(255, 0, 0),0);
 }
 
+void Bird::SetPosition(int x, int y)
+{
+	transform_.position_.x = x;
+	transform_.position_.y = y;
+}
+
 bool Bird::CollideCircle(float x, float y, float r)
 {
 	//x,y,r‚ª‘Šè‚Ì‰~‚Ìî•ñ
@@ -78,10 +84,4 @@ bool Bird::CollideCircle(float x, float y, float r)
 	{
 		return false;
 	}
-}
-
-void Bird::SetPosition(int x, int y)
-{
-	transform_.position_.x = x;
-	transform_.position_.y = y;
 }

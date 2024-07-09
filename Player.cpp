@@ -10,7 +10,7 @@ namespace
 	const float MOVE_SPEED = 3.0f;
 	//const float PLAYER_XPOSITION = 10.0f;
 	const float GROUND = 575.0f;
-	const float JUMP_HEIGHT = 64.0f * 4.0f;
+	const float JUMP_HEIGHT = 64.0f * 3.5f;
 	const float GRAVITY = 9.8f / 60.0f;
 
 };
@@ -18,8 +18,8 @@ Player::Player(GameObject* parent) : GameObject(sceneTop)
 {
 	hImage = LoadGraph("Assets/aoi.png");
 	assert(hImage > 0);
-	transform_.position_.x = 100.0f;
-	transform_.position_.y = GROUND;
+	//transform_.position_.x = 100.0f;
+	//transform_.position_.y = GROUND;
 	onGround = true;
 	flameCounter = 0;
 	animType = 0;

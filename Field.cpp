@@ -5,7 +5,7 @@
 #include "Bird.h"
 #include "Engine/CsvReader.h"
 
-Field::Field(GameObject* scene)
+Field::Field(GameObject* scene) : GameObject(scene)
 {
 	hImage = LoadGraph("Assets/bgchar.png");
 	assert(hImage > 0);
@@ -45,19 +45,23 @@ void Field::Reset()
 
 	for (int h = 0; h < height; h++) {
 		for (int w = 0; w < width; w++) {
-			switch (csv.GetInt(w, h/* + height + 1*/))
+			switch (csv.GetInt(w, h))
 			{
-			//case 0: //ƒvƒŒƒCƒ„[
-			//{
-			//	Player* pPlayer = GetParent()->FindGameObject<Player>();
-			//	pPlayer->SetPosition(w * 32, h * 32);
-			//	break;
-			//}
-			case 1:
+			case 0: //Player
+			{
+				Player* pPlayer = GetParent()->FindGameObject<Player>();
+				pPlayer->SetPosition(w * 32, h * 32);
+				break;
+			}
+			case 1: //Bird
 			{
 				Bird* pBird = GetParent()->FindGameObject<Bird>();
 				pBird->SetPosition(w * 32, h * 32);
 				break;
+			}
+			case 4:
+			{
+
 			}
 			}
 			Map[h * width + w] = csv.GetValue(w, h);
@@ -95,10 +99,22 @@ int Field::CollisionRight(int x, int y)
 	return 0;
 }
 
+int Field::CollisionLeft(int x, int y)
+{
+	if (IsWallBlock(x, y))
+		return x % 14 + 1;
+	return 0;
+}
+
 int Field::CollisionDown(int x, int y)
 {
 	if (IsWallBlock(x, y))
 		return y % 32 + 1;
+	return 0;
+}
+
+int Field::CollisionUp(int x, int y)
+{
 	return 0;
 }
 
