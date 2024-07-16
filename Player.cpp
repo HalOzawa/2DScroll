@@ -18,8 +18,8 @@ Player::Player(GameObject* parent) : GameObject(sceneTop)
 {
 	hImage = LoadGraph("Assets/aoi.png");
 	assert(hImage > 0);
-	//transform_.position_.x = 100.0f;
-	//transform_.position_.y = GROUND;
+	transform_.position_.x = 0.0f;
+	transform_.position_.y = GROUND;
 	onGround = true;
 	flameCounter = 0;
 	animType = 0;
@@ -253,11 +253,6 @@ void Player::Update()
 
 	//------------------------------------------------------------------------------------------
 
-	//if (CheckHitKey(KEY_INPUT_M))
-	//{
-	//	Stone* st = Instantiate<Stone>(GetParent());
-	//	st->SetPosition(transform_.position_);
-	//}
 	std::list<Bird*> eBird = GetParent()->FindGameObjects<Bird>();
 	for (Bird* eBird : eBird)
 	{

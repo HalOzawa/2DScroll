@@ -10,6 +10,9 @@ Field::Field(GameObject* scene) : GameObject(scene)
 	hImage = LoadGraph("Assets/bgchar.png");
 	assert(hImage > 0);
 
+	number = 0;
+	RandMax = 100;
+	Color = GetColor(255, 255, 255);
 }
 
 Field::~Field()
@@ -56,13 +59,16 @@ void Field::Reset()
 			case 1: //Bird
 			{
 				Bird* pBird = GetParent()->FindGameObject<Bird>();
-				pBird->SetPosition(w * 32, h * 32);
+				if (pBird) {
+					pBird->SetPosition(w * 32, h * 32);
+				}
 				break;
 			}
-			case 4:
+			case 2: //Wolf
 			{
 
 			}
+
 			}
 			Map[h * width + w] = csv.GetValue(w, h);
 		}
@@ -88,8 +94,11 @@ void Field::Draw()
 		for (int x = 0; x < width; x++) {
 			int chip = Map[y * width + x];
 			DrawRectGraph(x * 32 - scroll, y * 32, 32 * (chip % 16), 32 * (chip / 16), 32, 32, hImage, TRUE);//0
+			//DrawCircle(x + 32.0f, y + 32.0f, 24.0f, GetColor(255, 0, 0), 0);
 		}
 	}
+
+	DrawFormatString(0, 0, Color, "—”‚Í %d", number);
 }
 
 int Field::CollisionRight(int x, int y)
@@ -102,7 +111,7 @@ int Field::CollisionRight(int x, int y)
 int Field::CollisionLeft(int x, int y)
 {
 	if (IsWallBlock(x, y))
-		return x % 14 + 1;
+		return x % 4 + 1;
 	return 0;
 }
 
@@ -115,24 +124,55 @@ int Field::CollisionDown(int x, int y)
 
 int Field::CollisionUp(int x, int y)
 {
+	if (IsWallBlock(x, y))
+		return y % 32 + 1;
 	return 0;
 }
+
+//int Field::CollisionHit(int x, int y)
+//{
+//	if (IsHitBlock(x, y))
+//		return x % 32 + 1;
+//	return 0;
+//}
 
 bool Field::IsWallBlock(int x, int y)
 {
 	int chipX = x / 32;
 	int chipY = y / 32;
-	switch (Map[chipY * width + chipX]) {
-	case 16:
-	case 17:
-	case 18:
-	case 19:
-	case 32:
-	case 33:
-	case 34:
-	case 35:
-		return true;
-	}
-	return false;
 
+	int mapIndex = chipY * width + chipX;
+	if (mapIndex >= 0 && mapIndex < width * height) {
+		switch (Map[mapIndex]) {
+		case 16:
+		case 17:
+		case 18:
+		case 19:
+		case 32:
+		case 33:
+		case 34:
+		case 35:
+			return true;
+		}
+		return false;
+	}
+}
+
+bool Field::IsHitBlock(int x, int y)
+{
+	int chipX = x / 32;
+	int chipY = y / 32;
+
+	int mapIndex = chipY * width + chipX;
+	if (mapIndex >= 0 && mapIndex < width * height) {
+		switch (Map[mapIndex]) {
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+			return true;
+		}
+		return false;
+	}
 }
