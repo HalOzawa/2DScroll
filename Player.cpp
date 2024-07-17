@@ -8,7 +8,6 @@
 namespace
 {
 	const float MOVE_SPEED = 3.0f;
-	//const float PLAYER_XPOSITION = 10.0f;
 	const float GROUND = 575.0f;
 	const float JUMP_HEIGHT = 64.0f * 3.5f;
 	const float GRAVITY = 9.8f / 60.0f;
@@ -44,6 +43,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	
 	//if (transform_.position_.x >= 400 && transform_.position_.x <= 900) {
 	//	if (count < 1) {
 	//		number = GetRand(RandMax);
@@ -185,6 +185,10 @@ void Player::Update()
 			int push = pField->CollisionRight(hitX, hitY);//ï«Ç…ÇﬂÇËÇ±ÇÒÇæï™Çï‘Ç∑ÅiÇªÇÍà»è„êiÇﬂÇ»Ç≠Ç∑ÇÈÅj
 			transform_.position_.x -= push;
 		}
+		if (pField != nullptr) {
+			int push = pField->CollisionHit(hitX, hitY);
+			//transform_.position_.x -= push;
+		}
 	}
 	else if (CheckHitKey(KEY_INPUT_A))
 	{
@@ -253,10 +257,10 @@ void Player::Update()
 
 	//------------------------------------------------------------------------------------------
 
-	std::list<Bird*> eBird = GetParent()->FindGameObjects<Bird>();
-	for (Bird* eBird : eBird)
+	std::list<Bird*> pBird = GetParent()->FindGameObjects<Bird>();
+	for (Bird* pBird : pBird)
 	{
-		if (eBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
+		if (pBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
 		{
 			//ìñÇΩÇ¡ÇΩèàóù
 			KillMe();

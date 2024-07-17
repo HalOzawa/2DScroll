@@ -10,8 +10,7 @@ Field::Field(GameObject* scene) : GameObject(scene)
 	hImage = LoadGraph("Assets/bgchar.png");
 	assert(hImage > 0);
 
-	number = 0;
-	RandMax = 100;
+	
 	Color = GetColor(255, 255, 255);
 }
 
@@ -46,20 +45,22 @@ void Field::Reset()
 	//	}
 	//}
 
+	Player* pPlayer = GetParent()->FindGameObject<Player>();
 	for (int h = 0; h < height; h++) {
 		for (int w = 0; w < width; w++) {
 			switch (csv.GetInt(w, h))
 			{
 			case 0: //Player
 			{
-				Player* pPlayer = GetParent()->FindGameObject<Player>();
+				//Player* pPlayer = GetParent()->FindGameObject<Player>();
 				pPlayer->SetPosition(w * 32, h * 32);
 				break;
 			}
 			case 1: //Bird
 			{
-				Bird* pBird = GetParent()->FindGameObject<Bird>();
-				if (pBird) {
+				std::list<Bird*> pBird = GetParent()->FindGameObjects<Bird>();
+				for (Bird* pBird : pBird)
+				{
 					pBird->SetPosition(w * 32, h * 32);
 				}
 				break;
@@ -68,9 +69,25 @@ void Field::Reset()
 			{
 
 			}
-
+			//case 4:
+			//{
+			//	
+			//	if(pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 5.0f))
+			//	{
+			//		number = GetRand(RandMax);
+			//	}
+			//}
 			}
 			Map[h * width + w] = csv.GetValue(w, h);
+			if (pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
+			{
+			//	Player* pPlayer = GetParent()->FindGameObject<Player>();
+				if(csv.GetValue(w, h) == 4)
+				{
+					//number = GetRand(RandMax);
+					
+				}
+			}
 		}
 	}
 }
@@ -98,7 +115,7 @@ void Field::Draw()
 		}
 	}
 
-	DrawFormatString(0, 0, Color, "óêêîÇÕ %d", number);
+	DrawFormatString(0, 0, Color, "óêêîÇÕ %d", /*number*/);
 }
 
 int Field::CollisionRight(int x, int y)
@@ -129,12 +146,12 @@ int Field::CollisionUp(int x, int y)
 	return 0;
 }
 
-//int Field::CollisionHit(int x, int y)
-//{
-//	if (IsHitBlock(x, y))
-//		return x % 32 + 1;
-//	return 0;
-//}
+int Field::CollisionHit(int x, int y)
+{
+	if (IsHitBlock(x, y))
+		return x % 32 + 1;
+	return 0;
+}
 
 bool Field::IsWallBlock(int x, int y)
 {

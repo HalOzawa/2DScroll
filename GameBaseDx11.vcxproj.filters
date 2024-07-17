@@ -59,6 +59,7 @@
     <ClCompile Include="Field.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject.h">
@@ -95,5 +96,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Random.h" />
   </ItemGroup>
 </Project>

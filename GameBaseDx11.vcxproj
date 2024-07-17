@@ -141,6 +141,7 @@
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Stone.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>

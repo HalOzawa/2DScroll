@@ -18,18 +18,17 @@ public:
 	int CollisionDown(int x, int y);
 	int CollisionUp(int x, int y);
 
-	//int CollisionHit(int x, int y);
+	int CollisionHit(int x, int y);
 
 private:
 	int hImage;
 	
 	bool IsWallBlock(int x, int y);
-	//bool IsHitBlock(int x, int y);
+	bool IsHitBlock(int x, int y);
 	int* Map;
 	int width;
 	int height;
 
-	int number;
-	int RandMax;
+	
 	int Color;
 };
