@@ -7,8 +7,9 @@
 
 namespace
 {
-	const float MOVE_SPEED = 3.0f;
-	const float GROUND = 575.0f;
+	const float MOVE_SPEED = 4.5f;
+	//const float PLAYER_XPOSITION = 10.0f;
+	const float GROUND = 600.0f;
 	const float JUMP_HEIGHT = 64.0f * 3.5f;
 	const float GRAVITY = 9.8f / 60.0f;
 
@@ -17,8 +18,8 @@ Player::Player(GameObject* parent) : GameObject(sceneTop)
 {
 	hImage = LoadGraph("Assets/aoi.png");
 	assert(hImage > 0);
-	transform_.position_.x = 0.0f;
-	transform_.position_.y = GROUND;
+	//transform_.position_.x = 100.0f;
+	//transform_.position_.y = GROUND;
 	onGround = true;
 	flameCounter = 0;
 	animType = 0;
@@ -43,7 +44,6 @@ Player::~Player()
 
 void Player::Update()
 {
-	
 	//if (transform_.position_.x >= 400 && transform_.position_.x <= 900) {
 	//	if (count < 1) {
 	//		number = GetRand(RandMax);
@@ -186,8 +186,8 @@ void Player::Update()
 			transform_.position_.x -= push;
 		}
 		if (pField != nullptr) {
-			int push = pField->CollisionHit(hitX, hitY);
-			//transform_.position_.x -= push;
+			int push = pField->CollisionHit(hitX, hitY);//壁にめりこんだ分を返す（それ以上進めなくする）
+			transform_.position_.x -= push;
 		}
 	}
 	else if (CheckHitKey(KEY_INPUT_A))
@@ -197,6 +197,13 @@ void Player::Update()
 		{
 			animFrame = (animFrame + 1) % 4;//if文を使わない最適解
 			flameCounter = 0;
+		}
+
+		int hitX = transform_.position_.x + 14;
+		int hitY = transform_.position_.y + 63;
+		if (pField != nullptr) {
+			int push = pField->CollisionLeft(hitX, hitY);//壁にめりこんだ分を返す（それ以上進めなくする）
+			transform_.position_.x += push;
 		}
 	}
 	else
@@ -209,7 +216,7 @@ void Player::Update()
 	{
 		PictFlame = 80;
 
-		animFrame = (animFrame + 1) % 4;
+		//animFrame = (animFrame + 1) % 4;
 		if (prevSpaceKey == false)
 		{
 			if (onGround)
@@ -223,9 +230,20 @@ void Player::Update()
 	else
 	{
 		prevSpaceKey = false;
-	}
 
-	//-------------------+++加速のプログラムは基礎の基礎+++-------------------
+		if (pField != nullptr && !onGround)
+		{
+			int hitX = transform_.position_.x + 32;
+			int hitY = transform_.position_.y;
+
+			int push = pField->CollisionUp(hitX, hitY);
+			if (push > 0)
+			{
+				Jump_P = 0.0f;
+				transform_.position_.y += push;
+			}
+		}
+	}
 
 	Jump_P += GRAVITY; //速度 += 加速度
 	transform_.position_.y += Jump_P; //座標 += 速度
@@ -248,19 +266,18 @@ void Player::Update()
 		}
 	}
 
-	if (transform_.position_.y >= GROUND)//地面についたら速度を元に戻す、戻さないと貫通する恐れあり
+	if (transform_.position_.y >= 800)//地面についたら速度を元に戻す、戻さないと貫通する恐れあり
 	{
-		transform_.position_.y = GROUND;
-		Jump_P = 0.0f;
-		onGround = true;
+		KillMe();
+		//transform_.position_.y = GROUND;
+		//Jump_P = 0.0f;
+		//onGround = true;
 	}
 
-	//------------------------------------------------------------------------------------------
-
-	std::list<Bird*> pBird = GetParent()->FindGameObjects<Bird>();
-	for (Bird* pBird : pBird)
+	std::list<Bird*> eBird = GetParent()->FindGameObjects<Bird>();
+	for (Bird* eBird : eBird)
 	{
-		if (pBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
+		if (eBird->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
 		{
 			//当たった処理
 			KillMe();

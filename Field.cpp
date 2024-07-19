@@ -10,7 +10,8 @@ Field::Field(GameObject* scene) : GameObject(scene)
 	hImage = LoadGraph("Assets/bgchar.png");
 	assert(hImage > 0);
 
-	
+	number = 0;
+	RandMax = 100;
 	Color = GetColor(255, 255, 255);
 }
 
@@ -79,12 +80,12 @@ void Field::Reset()
 			//}
 			}
 			Map[h * width + w] = csv.GetValue(w, h);
-			if (pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 20.0f))
+			if (pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 4.0f))
 			{
-			//	Player* pPlayer = GetParent()->FindGameObject<Player>();
-				if(csv.GetValue(w, h) == 4)
+				//Player* pPlayer = GetParent()->FindGameObject<Player>();
+				//if(csv.GetInt(w, h) == 18)
 				{
-					//number = GetRand(RandMax);
+					number = GetRand(RandMax);
 					
 				}
 			}
@@ -111,11 +112,14 @@ void Field::Draw()
 		for (int x = 0; x < width; x++) {
 			int chip = Map[y * width + x];
 			DrawRectGraph(x * 32 - scroll, y * 32, 32 * (chip % 16), 32 * (chip / 16), 32, 32, hImage, TRUE);//0
+			if (IsWallBlock(x * 32, y * 32)){
+					DrawBox(x * 32 - scroll, y * 32, (x + 1) * 32 - scroll, (y + 1) * 32, GetColor(255, 0, 0), FALSE);
+			}
 			//DrawCircle(x + 32.0f, y + 32.0f, 24.0f, GetColor(255, 0, 0), 0);
 		}
 	}
 
-	DrawFormatString(0, 0, Color, "—”‚Í %d", /*number*/);
+	DrawFormatString(0, 0, Color, "—”‚Í %d", number);
 }
 
 int Field::CollisionRight(int x, int y)

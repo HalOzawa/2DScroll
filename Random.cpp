@@ -9,7 +9,7 @@ Random::Random(GameObject* scene)
 
 void Random::Update()
 {
-	number = GetRand(RandMax);
+	//number = GetRand(RandMax);
 }
 
 void Random::GetRand(int Number_)

@@ -29,6 +29,7 @@ private:
 	int width;
 	int height;
 
-	
+	int number;
+	int RandMax;
 	int Color;
 };
