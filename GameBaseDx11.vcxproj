@@ -144,6 +144,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Stone.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="Wolf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bird.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Wolf.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

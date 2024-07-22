@@ -60,6 +60,9 @@
       <Filter>Stage</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Wolf.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject.h">
@@ -97,5 +100,8 @@
       <Filter>Stage</Filter>
     </ClInclude>
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Wolf.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

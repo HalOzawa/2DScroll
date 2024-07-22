@@ -1,6 +1,7 @@
 #include "TestScene.h"
 #include "Player.h"
 #include "Bird.h"
+#include "Wolf.h"
 #include "Field.h"
 #include "Camera.h"
 
@@ -17,6 +18,7 @@ void TestScene::Initialize()
 	Field* pField = Instantiate<Field>(this);
 	Instantiate<Player>(this);
 	Instantiate<Bird>(this);
+	Instantiate<Wolf>(this);
 	pField->Reset();
 }
 

@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include"Player.h"
 #include "Bird.h"
+#include "Wolf.h"
 #include "Engine/CsvReader.h"
 
 Field::Field(GameObject* scene) : GameObject(scene)
@@ -68,27 +69,31 @@ void Field::Reset()
 			}
 			case 2: //Wolf
 			{
-
+				Wolf* pWolf = GetParent()->FindGameObject<Wolf>();
+				pWolf->SetPosition(w * 32, h * 32);
+				break;
 			}
-			//case 4:
-			//{
-			//	
-			//	if(pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 5.0f))
-			//	{
-			//		number = GetRand(RandMax);
-			//	}
-			//}
+			case 4:
+			{
+				if(pPlayer->CollideCircle(w * 32, h * 32, 16.0f))
+				{
+					//number = GetRand(RandMax);
+				}
+				break;
+			default:
+				break;
+			}
 			}
 			Map[h * width + w] = csv.GetValue(w, h);
-			if (pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 4.0f))
-			{
-				//Player* pPlayer = GetParent()->FindGameObject<Player>();
-				//if(csv.GetInt(w, h) == 18)
-				{
-					number = GetRand(RandMax);
-					
-				}
-			}
+			//if (pPlayer->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 32.0f, 4.0f))
+			//{
+			//	//Player* pPlayer = GetParent()->FindGameObject<Player>();
+			//	//if(csv.GetInt(w, h) == 18)
+			//	{
+			//		number = GetRand(RandMax);
+			//		
+			//	}
+			//}
 		}
 	}
 }
@@ -115,11 +120,10 @@ void Field::Draw()
 			if (IsWallBlock(x * 32, y * 32)){
 					DrawBox(x * 32 - scroll, y * 32, (x + 1) * 32 - scroll, (y + 1) * 32, GetColor(255, 0, 0), FALSE);
 			}
-			//DrawCircle(x + 32.0f, y + 32.0f, 24.0f, GetColor(255, 0, 0), 0);
 		}
 	}
 
-	DrawFormatString(0, 0, Color, "óêêîÇÕ %d", number);
+	//DrawFormatString(0, 0, Color, "óêêîÇÕ %d", number);
 }
 
 int Field::CollisionRight(int x, int y)
@@ -169,6 +173,7 @@ bool Field::IsWallBlock(int x, int y)
 		case 17:
 		case 18:
 		case 19:
+		case 21:
 		case 32:
 		case 33:
 		case 34:
@@ -192,6 +197,7 @@ bool Field::IsHitBlock(int x, int y)
 		case 6:
 		case 7:
 		case 8:
+		case 21:
 			return true;
 		}
 		return false;

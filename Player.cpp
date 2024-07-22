@@ -7,7 +7,7 @@
 
 namespace
 {
-	const float MOVE_SPEED = 4.5f;
+	const float MOVE_SPEED = 3.5f;
 	//const float PLAYER_XPOSITION = 10.0f;
 	const float GROUND = 600.0f;
 	const float JUMP_HEIGHT = 64.0f * 3.5f;
@@ -18,8 +18,8 @@ Player::Player(GameObject* parent) : GameObject(sceneTop)
 {
 	hImage = LoadGraph("Assets/aoi.png");
 	assert(hImage > 0);
-	//transform_.position_.x = 100.0f;
-	//transform_.position_.y = GROUND;
+	transform_.position_.x = 100.0f;
+	transform_.position_.y = GROUND;
 	onGround = true;
 	flameCounter = 0;
 	animType = 0;
@@ -102,7 +102,6 @@ void Player::Update()
 	//	}
 
 	//	if (number == 1) {
-
 	//	}
 	//	else if (number > 1 && number <= 70) {
 	//		DrawString(100, 250, "何も起きなかった", Color);
@@ -185,10 +184,6 @@ void Player::Update()
 			int push = pField->CollisionRight(hitX, hitY);//壁にめりこんだ分を返す（それ以上進めなくする）
 			transform_.position_.x -= push;
 		}
-		if (pField != nullptr) {
-			int push = pField->CollisionHit(hitX, hitY);//壁にめりこんだ分を返す（それ以上進めなくする）
-			transform_.position_.x -= push;
-		}
 	}
 	else if (CheckHitKey(KEY_INPUT_A))
 	{
@@ -199,7 +194,7 @@ void Player::Update()
 			flameCounter = 0;
 		}
 
-		int hitX = transform_.position_.x + 14;
+		int hitX = transform_.position_.x + 15;
 		int hitY = transform_.position_.y + 63;
 		if (pField != nullptr) {
 			int push = pField->CollisionLeft(hitX, hitY);//壁にめりこんだ分を返す（それ以上進めなくする）
@@ -230,20 +225,20 @@ void Player::Update()
 	else
 	{
 		prevSpaceKey = false;
-
-		if (pField != nullptr && !onGround)
-		{
-			int hitX = transform_.position_.x + 32;
-			int hitY = transform_.position_.y;
-
-			int push = pField->CollisionUp(hitX, hitY);
-			if (push > 0)
-			{
-				Jump_P = 0.0f;
-				transform_.position_.y += push;
-			}
-		}
 	}
+
+	//if (pField != nullptr && !onGround)
+	//{
+	//	int hitX = transform_.position_.x + 32;
+	//	int hitY = transform_.position_.y;
+
+	//	int push = pField->CollisionUp(hitX, hitY);
+	//	if (push > 0)
+	//	{
+	//		Jump_P = 0.0f;
+	//		transform_.position_.y += push;
+	//	}
+	//}
 
 	Jump_P += GRAVITY; //速度 += 加速度
 	transform_.position_.y += Jump_P; //座標 += 速度
@@ -266,9 +261,9 @@ void Player::Update()
 		}
 	}
 
-	if (transform_.position_.y >= 800)//地面についたら速度を元に戻す、戻さないと貫通する恐れあり
+	//if (transform_.position_.y >= 800)//地面についたら速度を元に戻す、戻さないと貫通する恐れあり
 	{
-		KillMe();
+		//KillMe();
 		//transform_.position_.y = GROUND;
 		//Jump_P = 0.0f;
 		//onGround = true;
