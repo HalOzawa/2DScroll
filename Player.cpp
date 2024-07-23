@@ -3,6 +3,7 @@
 #include <assert.h>
 #include"Camera.h"
 #include "Bird.h"
+#include "Wolf.h"
 #include "Field.h"
 
 namespace
@@ -278,6 +279,17 @@ void Player::Update()
 			KillMe();
 		}
 	}
+
+	std::list<Wolf*> pWolf = GetParent()->FindGameObjects<Wolf>();
+	for (Wolf* pWolf : pWolf)
+	{
+		if (pWolf->CollideCircle(transform_.position_.x + 32.0f, transform_.position_.y + 64.0f, 20.0f))
+		{
+			//“–‚½‚Á‚½ˆ—
+			KillMe();
+		}
+	}
+
 	//ƒJƒƒ‰ˆÊ’u‚Ì’²®
 	//ƒJƒƒ‰ˆ—
 	Camera* cam = GetParent()->FindGameObject<Camera>();

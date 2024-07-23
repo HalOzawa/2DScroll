@@ -16,10 +16,11 @@ void TestScene::Initialize()
 {
 	Instantiate<Camera>(this);
 	Field* pField = Instantiate<Field>(this);
-	Instantiate<Player>(this);
 	Instantiate<Bird>(this);
 	Instantiate<Wolf>(this);
+	Instantiate<Player>(this);
 	pField->Reset();
+	
 }
 
 //XV

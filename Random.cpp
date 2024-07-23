@@ -7,12 +7,25 @@ Random::Random(GameObject* scene)
 	
 }
 
+Random::~Random()
+{
+}
+
 void Random::Update()
 {
 	//number = GetRand(RandMax);
 }
 
-void Random::GetRand(int Number_)
+void Random::Draw()
 {
-	Number_ = number;
+}
+
+bool Random::CollideCircle(float x, float y, float r)
+{
+	return false;
+}
+
+void Random::SetPosition(int x, int y)
+{
+	
 }
